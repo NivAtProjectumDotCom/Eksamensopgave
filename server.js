@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
-<<<<<<< HEAD
+
 // Task 4
 app.get('/list/all', (req, res, next) => {
   if(req.query.limit){
