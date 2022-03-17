@@ -20,6 +20,9 @@
     "express": "^4.17.3",
     "nodemon": "^2.0.15"
   },
+<<<<<<< HEAD
   "devDependencies": {},
+=======
+>>>>>>> 2ccf3c6005449e81c19fbaabbad2b223ac8a9f0d
   "description": ""
 }
