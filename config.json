@@ -1,5 +1,5 @@
 
-{  
+ {  
     "server": "dbaserver2022.database.windows.net", 
     "authentication": {
         "type": "default",
@@ -12,4 +12,4 @@
         "encrypt": true,
         "database": "DBA"
     }
-} 
+}  
