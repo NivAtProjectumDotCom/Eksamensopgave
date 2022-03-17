@@ -1,6 +1,9 @@
 const { Router } = require('express')
 const express = require('express')
 const app = express()
+var Connection = require('tedious').Connection;
+var Request = require('tedious').Request
+const connection = require('./Database/db_connect')
 const port = 3000
 
 app.get('/', (req, res) => {
@@ -12,14 +15,39 @@ app.listen(port, () => {
 })
 
 // Task 4
-app.get('/list/all', (req, res, next) => {
-  if(req.query.limit){
-      res.status(200).json(shoppingList.slice(0, req.query.limit));
-  } else {
-      res.status(200).json(shoppingList);
-  }
-  
-});
+app.get('/users', (req, res) => {
+  const request = new Request("SELECT * FROM production.brands", function(err){
+    if (err){
+        console.log(err)
+      }
+    })
+  connection.execSql(request)
+  request.on('row', function(columns){
+    console.log(columns)
+    res.json(true)
+  });
+
+})
+
+/*
+function executeSQL(){
+    request = new Request("SELECT * FROM production.brands", function(err){
+    if (err){
+        console.log(err)}})
+
+    connection.execSql(request)
+    var counter = 1
+    response = {}
+    request.on('row', function(columns){
+        response[counter] = {}
+        columns.forEach(function(column){
+            response[counter][column.metadata.colName] = column.value
+        });
+        counter += 1
+    });
+    return response
+};
+ */
 
 // Task 5
 app.post('/list', (req, res, next) => {
