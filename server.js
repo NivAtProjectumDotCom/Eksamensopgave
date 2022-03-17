@@ -1,3 +1,4 @@
+const { Router } = require('express')
 const express = require('express')
 const app = express()
 const port = 3000
@@ -9,6 +10,7 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
+<<<<<<< HEAD
 // Task 4
 app.get('/list/all', (req, res, next) => {
   if(req.query.limit){
@@ -53,3 +55,4 @@ app.get('/list/:id', (req, res, next) => {
   const foundItem = shoppingList.find(item => item.id == req.params.id) || [];
   res.status(200).json(foundItem);
 });
+
