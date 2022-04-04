@@ -1,6 +1,6 @@
 // Get 'Users' from production.brands
 app.get('/users', (req, res) => {
-    const request = new Request("SELECT * FROM sales.customers", function(err){
+    const request = new Request("SELECT * FROM ProgEksamen.Users", function(err){
       if (err){
           console.log(err)
         }
@@ -14,7 +14,7 @@ app.get('/users', (req, res) => {
   
     // Create new user into sales.customers
     app.post('/users', (req, res, next) => {
-      const request = new Request("INSERT INTO sales.customers (customer_id, first_name, last_name, phone, email, street, city, state, zip_code) VALUES () ", function(err){
+      const request = new Request("INSERT INTO ProgEksamen.Users (ID, Username, Password, Email, Userlevel, Followed_ads) VALUES () ", function(err){
         if (err){
             console.log(err)
           }
@@ -28,7 +28,7 @@ app.get('/users', (req, res) => {
   
   // Delete user based on customer_id
     app.delete('/users', (req, res, next) => {
-      const request = new Request("DELETE FROM sales.customers WHERE customer_id = '' ", function(err){
+      const request = new Request("DELETE FROM ProgEksamen.Users WHERE Users_ID = '' ", function(err){
         if (err){
             console.log(err)
           }
@@ -43,7 +43,7 @@ app.get('/users', (req, res) => {
   
     // Update all values except customer_id
     app.put('/users', (req, res, next) => {
-      const request = new Request("UPDATE FROM sales.customers SET '' WHERE = '' ", function(err){
+      const request = new Request("UPDATE FROM ProgEksamen.Users SET '' WHERE = '' ", function(err){
         if (err){
             console.log(err)
           }
