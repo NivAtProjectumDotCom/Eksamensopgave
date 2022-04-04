@@ -15,7 +15,7 @@ connection.on('connect', function(err){
 connection.connect()
 
 function executeSQL(){
-    request = new Request("SELECT * FROM production.brands", function(err){
+    request = new Request("SELECT * FROM ProgEksamen.Users", function(err){
     if (err){
         console.log(err)}})
 
