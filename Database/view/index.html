@@ -1,0 +1,66 @@
+<html>
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <title>Min side</title>
+    <link rel="shortcut icon" href="/assets/favicon.ico">
+    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+</head>
+    <body>
+        <div class="header">
+            Secondhand shop
+        </div>
+
+
+        <div class="søgefeldt">
+            <input type="text" placeholder="Søg..">
+          </div>
+
+         <div>
+        <button class="form__button__annonce" id="opretannonce">Opret annonce</button>
+        </div>
+
+
+    </body>
+
+    <div id="sidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="lukNav()">×</a>
+        <li id="opdatervare">Rediger annonce</li>
+        <li id="mineannoncer">Mine annoncer</button>
+          <li id="dyr">Kategori - Kæledyr</button>
+            <li id="elektronik">Kategori - Elektronik</button>
+              <li id="tojogmode">Kategori - Tøj & mode</button>
+        <li id="sletvare">Slet en annonce</li>
+        <li id="opdaterbruger">Skift adgangskode</li>
+        <li id= "sletBruger"> Slet bruger</li>
+        <li id= "logud"> Log ud</li>
+      </div>
+      
+      <div id="main">
+        <button class="aabenknap" id="aabenknap" onclick="aabenNav()">☰ Min Secondhand Shop</button>  
+        <h2>Min side</h2>
+      </div>
+
+      <table id="tabel" class="tabeller"></table>
+
+      <script>
+        function aabenNav() {
+          document.getElementById("sidebar").style.width = "250px";
+          document.getElementById("main").style.marginLeft = "250px";
+        }
+        
+        function lukNav() {
+          document.getElementById("sidebar").style.width = "0";
+          document.getElementById("main").style.marginLeft= "0";
+        }
+        </script>
+
+    
+
+    <script src=></script>
+
+</html>
