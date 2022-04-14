@@ -3,7 +3,7 @@ const app = express();
 
 // Controllers
 // Users
-const userController = require("./src/controller/user-controller");
+const userController = require("./src/controller/user-controllers");
 
 
 const PORT = process.env.PORT || 3000;
