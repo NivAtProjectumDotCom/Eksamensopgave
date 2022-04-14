@@ -1,18 +1,24 @@
-const { Router } = require('express')
-const express = require('express')
-const app = express()
-var Connection = require('tedious').Connection;
-var Request = require('tedious').Request
-const connection = require('./Database/db_connect')
-const port = 3000
+const express = require("express");
+const app = express();
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+// Controllers
+// Users
+const userController = require("./src/controllers/user-controller");
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+
+const PORT = process.env.PORT || 3000;
+
+// Middleware
+app.use(express.static("./src/views"));
+// JSON
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+// Routes
+app.use("/users", userController);
+
+// Start server
+app.listen(PORT, console.log(`Server is live on http://localhost:${PORT}`));
 
 
 

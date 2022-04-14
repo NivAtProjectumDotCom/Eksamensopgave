@@ -37,7 +37,7 @@ function executeSQL(){
 */
 
 
-// FUNKTION TIL AT INDSÆTTE EN BRUGER IND I DATABASEN. DEN VIRKER, MORTEN BLEV SAT IND :-)
+/* FUNKTION TIL AT INDSÆTTE EN BRUGER IND I DATABASEN. DEN VIRKER, MORTEN BLEV SAT IND :-)
 function executeSQL(){
     request = new Request("INSERT INTO ProgEksamen.Users (ID, Username, Password, Email, Userlevel, Followed_ads) VALUES (@ID, @Username, @Password, @Email, @Userlevel, @Followed_ads)", function(err){
     if (err){
@@ -65,4 +65,4 @@ function executeSQL(){
 };
 
 
-
+*/
