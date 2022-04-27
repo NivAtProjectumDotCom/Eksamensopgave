@@ -53,5 +53,21 @@ router.post("/create", async(req, res) => {
   
     res.status(200).json(result); 
 });
+
+// delete ads, work in progress
+
+router.delete("/delete", async(req, res) => {
+   
+   let productId = req.body?.productId ?? null;
+   
+   let deleteAdTSQL = "DELETE FROM sales.userAds WHERE id = 1" // skal kunne tage et blankt input
+
+   let result = await dbContext.executeNonQuery(deleteAdTSQL, [
+      ['productId', TYPES.Int, productId]
+   ])
+
+   res.status(200).json(result);
+
+});
  
 module.exports = router;

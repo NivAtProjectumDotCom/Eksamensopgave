@@ -87,4 +87,19 @@ router.post("/create", async(req, res) => {
     res.status(200).json(result);
 });
 
+// delete user, work in progess
+router.delete("/delete", async(req, res) => {
+   
+    let userId = req.body?.userId ?? null;
+    
+    let deleteUserTSQL = "DELETE FROM sales.users WHERE id = 2" // "2" skal ændres til at tage et blankt input2
+ 
+    let result = await dbContext.executeNonQuery(deleteUserTSQL, [
+       ['userId', TYPES.Int, userId]
+    ])
+ 
+    res.status(200).json(result);
+ 
+ });
+
 module.exports = router;
