@@ -60,7 +60,7 @@ router.delete("/delete", async(req, res) => {
    
    let productId = req.body?.productId ?? null;
    
-   let deleteAdTSQL = "DELETE FROM sales.userAds WHERE id = 1" // skal kunne tage et blankt input
+   let deleteAdTSQL = "DELETE FROM ProgEksamen.userAds WHERE id = $id" // skal kunne tage et blankt input
 
    let result = await dbContext.executeNonQuery(deleteAdTSQL, [
       ['productId', TYPES.Int, productId]
