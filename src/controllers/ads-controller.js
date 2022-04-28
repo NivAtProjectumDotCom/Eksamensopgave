@@ -60,7 +60,7 @@ router.delete("/delete", async(req, res) => {
    
    let productId = req.body?.productId ?? null;
    
-   let deleteAdTSQL = "DELETE FROM sales.userAds WHERE id = 1" // skal kunne tage et blankt input
+   let deleteAdTSQL = "DELETE FROM ProgEksamen.userAds WHERE id = $id" // skal kunne tage et blankt input
 
    let result = await dbContext.executeNonQuery(deleteAdTSQL, [
       ['productId', TYPES.Int, productId]
@@ -69,5 +69,21 @@ router.delete("/delete", async(req, res) => {
    res.status(200).json(result);
 
 });
+
+// update ad
+router.put("/update", async(req, res) => {
+
+   let productName = req.body?.userPassword ?? null;
+
+   let updateAdTSQL = "";
+
+   let result = await dbContext.executeNonQuery(updateAdTSQL, [
+       ['productName', TYPES.VarChar, productName]
+   ])
+   
+   res.status(200).json(result);
+
+})
+
  
 module.exports = router;
