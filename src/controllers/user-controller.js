@@ -66,6 +66,9 @@ router.post("/create", async(req, res) => {
     let userlevel = req.body?.userlevel ?? null;
    // let followedads = req.body?.followedads ?? null;
 
+
+
+
     // Validate the body and respond with error if not valid
     // if (username === null || password === null || email === null || userlevel === null) /* || followedads === null) */ res.status(500).send('ERROR IN BODY');
 
@@ -75,12 +78,14 @@ router.post("/create", async(req, res) => {
     // This is done by creating an array of arrays containing the 3 variable: VariableName, VariableType, VariableValue
     // The params is handled in the function by adding the to the tedious query request.
     let result = await dbContext.executeNonQuery(createUserTSQL, [
-        ['userName', TYPES.Text, username], 
-       ['password', TYPES.Text, password], 
-        ['email', TYPES.Text, email],
+        ['userName', TYPES.VarChar, username], 
+       ['password', TYPES.VarChar, password], 
+        ['email', TYPES.VarChar, email],
         ['userLevel_id', TYPES.Int, userlevel],
       //  ['followedads', TYPES.Int, followedads]
     ])
+
+    
   
     // Respond to the request with the result of the executed query, when the promise has been resolved or rejected.
     // This should probably be split into responding with something different than 200 if the promise is rejected. I just haven't had the time yet.
@@ -92,14 +97,30 @@ router.delete("/delete", async(req, res) => {
    
     let userId = req.body?.userId ?? null; 
     
-    let deleteUserTSQL = "DELETE FROM ProgEksamen.users WHERE id = @id" // "2" skal ændres til at tage et blankt input2
+    let deleteUserTSQL = `DELETE FROM ProgEksamen.users WHERE id = ${userId}`; // "2" skal ændres til at tage et blankt input2
  
     let result = await dbContext.executeNonQuery(deleteUserTSQL, [
-       ['userId', TYPES.Int, userId]
+       ['userId', TYPES.Int, userId] // id?
     ])
  
     res.status(200).json(result);
  
  });
+
+
+ // update user
+ router.put("/update", async(req, res) => {
+
+     let userPassword = req.body?.userPassword ?? null;
+
+     let updateUserTSQL = `UPDATE FROM ProgEksamen.users WHERE id = ${userId}`;
+
+     let result = await dbContext.executeNonQuery(updateUserTSQL, [
+         ['password', TYPES.VarChar, userPassword]
+     ])
+     
+     res.status(200).json(result);
+
+ })
 
 module.exports = router;

@@ -69,5 +69,21 @@ router.delete("/delete", async(req, res) => {
    res.status(200).json(result);
 
 });
+
+// update ad
+router.put("/update", async(req, res) => {
+
+   let productName = req.body?.userPassword ?? null;
+
+   let updateAdTSQL = "";
+
+   let result = await dbContext.executeNonQuery(updateAdTSQL, [
+       ['productName', TYPES.VarChar, productName]
+   ])
+   
+   res.status(200).json(result);
+
+})
+
  
 module.exports = router;

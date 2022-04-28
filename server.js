@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const bodyParser = require("body-parser");
 
 // Controllers
 // Users
@@ -15,10 +16,12 @@ app.use(express.static("./src/views"));
 // JSON
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // Routes
 app.use("/users", userController);
 app.use("/ads", adsController);
+
 // app.use("/admin, adminController");
 
 
