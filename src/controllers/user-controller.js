@@ -97,7 +97,7 @@ router.delete("/delete", async(req, res) => {
    
     let userId = req.body?.userId ?? null; 
     
-    let deleteUserTSQL = `DELETE FROM ProgEksamen.users WHERE id = ${userId}`; // "2" skal ændres til at tage et blankt input2
+    let deleteUserTSQL = `DELETE FROM ProgEksamen.users WHERE id = @userId`; // "2" skal ændres til at tage et blankt input2
  
     let result = await dbContext.executeNonQuery(deleteUserTSQL, [
        ['userId', TYPES.Int, userId] // id?
@@ -105,22 +105,31 @@ router.delete("/delete", async(req, res) => {
  
     res.status(200).json(result);
  
- });
+ }); 
 
 
  // update user
  router.put("/update", async(req, res) => {
 
-     let userPassword = req.body?.userPassword ?? null;
+     let userId = req.body?.userId ?? null;  // params istedet efter nedarvninger eventuelt minus ?
+    let email = req.body?.email ?? null; // params istedet
 
-     let updateUserTSQL = `UPDATE FROM ProgEksamen.users WHERE id = ${userId}`;
+    console.log(email)
+
+     let updateUserTSQL = `UPDATE ProgEksamen.users SET email = @email WHERE id = @userId`;
+
+     console.log(updateUserTSQL)
 
      let result = await dbContext.executeNonQuery(updateUserTSQL, [
-         ['password', TYPES.VarChar, userPassword]
+         ['email', TYPES.VarChar, email], // En tedious funtkion vi bruger, som ikke er "nødvendig". Der skal læses op på tedious.types/ using parameters, hvor vi søger efter https://stackoverflow.com/questions/50279825/does-tedious-module-for-node-js-have-any-function-for-preventing-sql-injection
+         ['userId', TYPES.Int, userId] 
      ])
-     
+      
+     console.log(result);
      res.status(200).json(result);
+ 
+ });
 
- })
+// Hej
 
 module.exports = router;

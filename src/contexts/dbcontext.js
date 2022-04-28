@@ -82,7 +82,7 @@ const executeNonQuery = (query, params) => new Promise(
         if (params != null) for (let i = 0; i < params.length; i++) {
             // Define and collect the params provided from the call
             let paramName = params[i][0];
-            let paramType = params[i][1];
+            let paramType = params[i][1]; // Tedious SQL injection
             let paramValue = params[i][2];
 
             // Add param to the request
