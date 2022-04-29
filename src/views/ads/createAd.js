@@ -5,8 +5,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
         // Collect values for API
         let productnameVal = document.getElementById("productnameInput").value;
         let priceVal = document.getElementById("priceInput").value;
-        let categoryVal = document.getElementById("catInput").value;
-        let conditionVal = document.getElementById("conInput").value;
+        let categoryVal = document.getElementById("categoryInput").value;
+        let conditionVal = document.getElementById("conditionInput").value;
         let locationVal = document.getElementById("locationInput").value;
     
 
