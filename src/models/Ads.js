@@ -1,13 +1,14 @@
-class Add {
-    constructor(id, addname, price, category, location, img)  {
+class Ad {
+    constructor(id, adname, price, category, location, condition, img)  {
         this.id = id,
-        this.addname = addname,
+        this.adname = adname,
         this.price = price,
         this.category = category,
         this.location = location,
+        this.condition = condition,
         this.img = img
     }
     
 }
 
-module.exports = Add
+module.exports = Ad

@@ -63,7 +63,7 @@ router.post("/create", async(req, res) => {
     let username = req.body?.username ?? null;
     let password = req.body?.password ?? null;
     let email = req.body.email ?? null;
-    let userlevel = req.body?.userlevel ?? null;
+ //   let userlevel = req.body?.userlevel ?? null;
    // let followedads = req.body?.followedads ?? null;
 
 
@@ -73,7 +73,7 @@ router.post("/create", async(req, res) => {
     // if (username === null || password === null || email === null || userlevel === null) /* || followedads === null) */ res.status(500).send('ERROR IN BODY');
 
     // Create T-SQL Query to be executed with a non resultset response. This time including multiple variable paramters by adding multiple @xxxxx (In this case @username, @password, @email, @userlevel, @followedads) to the query.
-    let createUserTSQL = "INSERT INTO ProgEksamen.users (email, userName, userLevel_id, password)  VALUES (@email, @userName, @userLevel_id, @password)"
+    let createUserTSQL = "INSERT INTO ProgEksamen.users (email, userName, password)  VALUES (@email, @userName, @password)"
     // Execute the query with the ExecuteNonQuery function, as we do not expect a resultset of rows of data, but rather a success/failed response and a rowCount. This time setting an array corresponding the parameters for the request.
     // This is done by creating an array of arrays containing the 3 variable: VariableName, VariableType, VariableValue
     // The params is handled in the function by adding the to the tedious query request.
@@ -81,8 +81,7 @@ router.post("/create", async(req, res) => {
         ['userName', TYPES.VarChar, username], 
        ['password', TYPES.VarChar, password], 
         ['email', TYPES.VarChar, email],
-        ['userLevel_id', TYPES.Int, userlevel],
-      //  ['followedads', TYPES.Int, followedads]
+   
     ])
 
     
@@ -90,17 +89,19 @@ router.post("/create", async(req, res) => {
     // Respond to the request with the result of the executed query, when the promise has been resolved or rejected.
     // This should probably be split into responding with something different than 200 if the promise is rejected. I just haven't had the time yet.
     res.status(200).json(result);
-});
+}); 
 
 // delete user, work in progess
 router.delete("/delete", async(req, res) => {
    
-    let userId = req.body?.userId ?? null; 
+    let userName = req.body?.userName ?? null; 
+    let password = req.body?.password ?? null;
     
-    let deleteUserTSQL = `DELETE FROM ProgEksamen.users WHERE id = @userId`; // "2" skal ændres til at tage et blankt input2
+    let deleteUserTSQL = `DELETE FROM ProgEksamen.users WHERE password = @password`; // "2" skal ændres til at tage et blankt input2
  
     let result = await dbContext.executeNonQuery(deleteUserTSQL, [
-       ['userId', TYPES.Int, userId] // id?
+       ['userName', TYPES.VarChar, userName] 
+       ['password', TYPES.VarChar, password]
     ])
  
     res.status(200).json(result);
@@ -111,18 +112,16 @@ router.delete("/delete", async(req, res) => {
  // update user
  router.put("/update", async(req, res) => {
 
-     let userId = req.body?.userId ?? null;  // params istedet efter nedarvninger eventuelt minus ?
-    let email = req.body?.email ?? null; // params istedet
+     let password = req.body?.password ?? null;  // params istedet efter nedarvninger eventuelt minus ?
+    let userName = req.body?.userName ?? null; // params istedet
 
-    console.log(email)
-
-     let updateUserTSQL = `UPDATE ProgEksamen.users SET email = @email WHERE id = @userId`;
+     let updateUserTSQL = `UPDATE ProgEksamen.users SET userName = @userName WHERE password = @password`;
 
      console.log(updateUserTSQL)
 
      let result = await dbContext.executeNonQuery(updateUserTSQL, [
-         ['email', TYPES.VarChar, email], // En tedious funtkion vi bruger, som ikke er "nødvendig". Der skal læses op på tedious.types/ using parameters, hvor vi søger efter https://stackoverflow.com/questions/50279825/does-tedious-module-for-node-js-have-any-function-for-preventing-sql-injection
-         ['userId', TYPES.Int, userId] 
+         ['userName', TYPES.VarChar, userName], // En tedious funtkion vi bruger, som ikke er "nødvendig". Der skal læses op på tedious.types/ using parameters, hvor vi søger efter https://stackoverflow.com/questions/50279825/does-tedious-module-for-node-js-have-any-function-for-preventing-sql-injection
+         ['password', TYPES.VarChar, password] 
      ])
       
      console.log(result);
@@ -130,6 +129,5 @@ router.delete("/delete", async(req, res) => {
  
  });
 
-// Hej
-
+ 
 module.exports = router;
