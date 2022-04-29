@@ -5,14 +5,19 @@ document.addEventListener("DOMContentLoaded", (event) => {
         // Collect values for API
         let productnameVal = document.getElementById("productnameInput").value;
         let priceVal = document.getElementById("priceInput").value;
-        let cityVal = document.getElementById("cityInput").value;
+        let categoryVal = document.getElementById("catInput").value;
+        let conditionVal = document.getElementById("conInput").value;
+        let locationVal = document.getElementById("locationInput").value;
     
 
         let product = {
             id: null,
             productname: productnameVal,
             price: priceVal,
-            city: cityVal,
+            category = categoryVal,
+            condition = conditionVal,
+            location: locationVal,
+
         };  
 
         // Call API 
@@ -31,7 +36,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 console.log(body);
                 document.getElementById("productnameInput").value = '';
                 document.getElementById("priceInput").value = '';
-                document.getElementById("cityInput").value = '';
+                document.getElementById("categoryInput").value = '';
+                document.getElementById("conditionInput").value = '';
+                document.getElementById("locationInput").value = '';
+
                 window.alert('Ad created!');
             })
             .catch(() => {
