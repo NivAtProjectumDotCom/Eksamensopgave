@@ -6,16 +6,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
         let usernameVal = document.getElementById("usernameInput").value;
         let passwordVal = document.getElementById("passwordInput").value;
         let emailVal = document.getElementById("EmailInput").value;
-        let userlevelVal = document.getElementById("userlevelInput").value;
-      //  let followedadsVal = document.getElementById("followedadsInput").value;
-
+  
         let user = {
-            id: null,
             username: usernameVal,
             password: passwordVal,
             email: emailVal,
-            userlevel: userlevelVal,
-          //  followedads: followedadsVal
+    
+ 
         };
 
         // Call API 
@@ -35,8 +32,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 document.getElementById("usernameInput").value = '';
                 document.getElementById("passwordInput").value = '';
                 document.getElementById("EmailInput").value = '';
-                document.getElementById("userlevelInput").value = '';
-             //   document.getElementById("followedadsInput").value = '';
                 window.alert('User created!');
             })
             .catch(() => {
