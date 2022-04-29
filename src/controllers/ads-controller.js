@@ -23,13 +23,10 @@ router.post("/create", async(req, res) => {
    // let createdAt = req.body?.createdAt ?? null;
     let productName = req.body?.productName ?? null;
     let price = req.body?.price ?? null;
-    // let category_id = req.body?.category_id ?? null;
-    // let location_id = req.body?.location_id ?? null;
-   // let condition_id = req.body?.condition_id ?? null;
-  //  let premiumAd = req.body?.premium_ad ?? null;
- //   let user_id = req.body?.user_id ?? null;
-    let city = req.body?.city ?? null;   
-
+    let category = req.body?.category ?? null;
+    let condition = req.body?.condition ?? null;
+    let location = req.body?.location?? null;
+    
   
     // if (createdAt === null || productName === null || price === null || category_id === null)  || location_id === null || condition_id === null || premiumAd === null || user_id === null || city === null) res.status(500).send('ERROR IN BODY');
 
@@ -40,15 +37,12 @@ router.post("/create", async(req, res) => {
 
     let result = await dbContext.executeNonQuery(createAdsTSQL, [
        // ['createdAt', TYPES.Timestamp, createdAt], 
-       ['productName', TYPES.Text, productName], 
-        ['price', TYPES.Decimal, price,], // skal nok ikke være Decimal
-       // ['category_id', TYPES.Int, category_id],
-     //   ['location_id', TYPES.Int, location_id],
-     //   ['condition_id', TYPES.Int, condition_id],
-     //   ['premiumAd', TYPES.Binary, premiumAd],
-      //  ['user_id', TYPES.Int, user_id],
-        ['City', TYPES.Text, city],
-    
+      ['productName', TYPES.Text, productName], 
+      ['price', TYPES.Decimal, price,], // skal nok ikke være Decimal
+      ['category_id', TYPES.Int, category],
+      ['condition_id', TYPES.Int, condition],
+      ['location_id', TYPES.Int, location],
+      
     ])
   
     res.status(200).json(result); 
