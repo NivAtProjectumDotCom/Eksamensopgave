@@ -58,16 +58,16 @@ router.get("/:userId", async (req, res) => {
 });
 
 // Create user
-router.post("/create", async (req, res) => {
+router.post("/create", async(req, res) => {
     // Collect the value of the body to use for the query parameters
     let username = req.body?.username ?? null;
     let password = req.body?.password ?? null;
     let email = req.body.email ?? null;
-    //   let userlevel = req.body?.userlevel ?? null;
-    // let followedads = req.body?.followedads ?? null;
+ //   let userlevel = req.body?.userlevel ?? null;
+   // let followedads = req.body?.followedads ?? null;
 
 
-
+    console.log(req.body);
 
     // Validate the body and respond with error if not valid
     // if (username === null || password === null || email === null || userlevel === null) /* || followedads === null) */ res.status(500).send('ERROR IN BODY');
@@ -78,18 +78,18 @@ router.post("/create", async (req, res) => {
     // This is done by creating an array of arrays containing the 3 variable: VariableName, VariableType, VariableValue
     // The params is handled in the function by adding the to the tedious query request.
     let result = await dbContext.executeNonQuery(createUserTSQL, [
-        ['userName', TYPES.VarChar, username],
-        ['password', TYPES.VarChar, password],
+        ['userName', TYPES.VarChar, username], 
+       ['password', TYPES.VarChar, password], 
         ['email', TYPES.VarChar, email],
-
+   
     ])
 
-
-
+    console.log(result);
+  
     // Respond to the request with the result of the executed query, when the promise has been resolved or rejected.
     // This should probably be split into responding with something different than 200 if the promise is rejected. I just haven't had the time yet.
-    res.status(200).json(result);
-});
+    res.status(200).json({message: `User with id X has been created`});
+}); 
 
 // delete user, work in progess
 router.delete("/delete", async (req, res) => {
