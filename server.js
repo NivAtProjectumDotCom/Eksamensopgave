@@ -9,7 +9,7 @@ const adsController = require("./src/controllers/ads-controller");
 // const adminController = require("./src/controllers/admin-controller");  
 
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 1010;
 
 // Middleware
 app.use(express.static("./src/views"));

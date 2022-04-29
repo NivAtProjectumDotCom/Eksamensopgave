@@ -32,16 +32,16 @@ router.post("/create", async(req, res) => {
 
  
     // let createAdsTSQL = "INSERT INTO sales.userAds (createdAt, productName, price, category_id, location_id, condition_id, premiumAd, user_id, city) VALUES (@createdAt, @productName, @price, @category_id, @location_id, @condition_id, @premium_ad, @user_id, @city)"
-    let createAdsTSQL = "INSERT INTO ProgEksamen.userAds (productName, price, City) VALUES (@productName, @price, @City)"
+    let createAdsTSQL = "INSERT INTO ProgEksamen.userAds (productName, price, City) VALUES (@productName, @price, @category_id, @condition_id, @location_id)"
 
 
     let result = await dbContext.executeNonQuery(createAdsTSQL, [
        // ['createdAt', TYPES.Timestamp, createdAt], 
       ['productName', TYPES.Text, productName], 
       ['price', TYPES.Decimal, price,], // skal nok ikke være Decimal
-      ['category_id', TYPES.Int, category],
-      ['condition_id', TYPES.Int, condition],
-      ['location_id', TYPES.Int, location],
+      ['category', TYPES.Int, category],
+      ['condition', TYPES.Int, condition],
+      ['location', TYPES.Int, location],
       
     ])
   
