@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         };  
 
         // Call API 
-        fetch(location.origin + "ads/create", {
+        fetch(location.origin + "/ads/create", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

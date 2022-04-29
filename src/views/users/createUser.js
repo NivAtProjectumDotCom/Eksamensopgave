@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", (event) => {
 
     // Event on button click
-    document.getElementById("createUserButton").addEventListener("click", (x, ev) => {
+    document.getElementById("createUserButton").addEventListener("click", (event) => {
+        event.preventDefault()
         // Collect values for API
         let usernameVal = document.getElementById("usernameInput").value;
         let passwordVal = document.getElementById("passwordInput").value;
@@ -14,9 +15,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
     
  
         };
-
+        console.log('teste')
         // Call API 
-        fetch(location.origin + "users/create", {
+        fetch(location.origin + "/users/create", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
