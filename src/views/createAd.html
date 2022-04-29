@@ -3,18 +3,8 @@
 <head>
     <script src="createAd.js"></script>
 
-    <!-- <style>
-        table {
-            border-collapse: collapse;
-            border-spacing: 0;
-        }
-        
-        th,
-        td {
-            padding: 10px 20px;
-            border: 1px solid #000;
-        }
-    </style> -->
+   <title> Second Hand Shop</title>
+   <meta charset="utf-8">
 </head>
 
 <body>
@@ -24,9 +14,35 @@
 
     <input id="productnameInput" placeholder="Product name"></input>
     <br />
-    <input id="priceInput" placeholder="Price of your product" />
+    <input type ="number" id="priceInput" placeholder="Price of your product" />
     <br />
-    <input id="cityInput" placeholder="City located in" />
+
+
+    <select name = "Category" id = "adCat">
+        <option value=>--Choose a Category--</option>
+        <option value="Electronic">Electronic</option>
+        <option value="Sport">Sport</option>
+        <option value="Clothing">Clothing</option>
+    </select>
+    <select name = "Condition" id = "condition">
+        <option value=>--Choose a Condition--</option>
+        <option value="Perfect">Perfect</option>
+        <option value="AlmostNew">Almost new</option>
+        <option value="Good">Good</option>
+        <option value="Clothing">Poor</option>
+    </select>
+    <select name = "Location" id = "location">
+        <option value=>--Choose a Location--</option>
+        <option value="København og omegn">København og omegn</option>
+        <option value="Aarhus">Aarhus</option>
+        <option value="Odense">Odense</option>
+        <option value="Aalborg">Aalborg</option>
+        <option value="Sjælland">Sjælland</option>
+        <option value="Jylland">Jylland</option>
+        <option value="Fyn">Fyn</option>
+        <option value="Bornholm">Bornholm</option>
+    </select>
+    <input type="file" name="img" id="img">
     <br />
     <br />
     <br />
