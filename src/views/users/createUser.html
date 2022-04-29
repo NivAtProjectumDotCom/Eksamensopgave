@@ -9,13 +9,15 @@
 <body>
     <h1>Create user</h1>
     <br/>
-    <input id="usernameInput" placeholder="Username" required>
-    <br/><br/>
-    <input id="passwordInput" type="password" placeholder="Password" required>
-    <br/><br/>
-    <input id="EmailInput" type="email" placeholder="Email" required>
-    <br/><br/><br/>
-    <button id="createUserButton">Create user</button>
+    <form id="form">
+        <input id="usernameInput" placeholder="Username" required>
+        <br/><br/>
+        <input type="password" id="passwordInput" placeholder="Password" required>
+        <br/><br/>
+        <input type="email" id="EmailInput" placeholder="Email" required>
+        <br/><br/><br/>
+        <input type="submit" value="Submit" id="createUserButton"/>
+    </form>
 </body>
 
 </html>
