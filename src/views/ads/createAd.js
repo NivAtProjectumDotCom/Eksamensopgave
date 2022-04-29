@@ -14,8 +14,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
             id: null,
             productname: productnameVal,
             price: priceVal,
-            category = categoryVal,
-            condition = conditionVal,
+            category: categoryVal,
+            condition: conditionVal,
             location: locationVal,
 
         };  
