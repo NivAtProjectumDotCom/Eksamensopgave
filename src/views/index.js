@@ -1,3 +1,5 @@
+
+/*
 document.addEventListener("DOMContentLoaded", (event) => {
 
     // Event on button click
@@ -104,3 +106,4 @@ document.addEventListener("DOMContentLoaded", (event) => {
     });
 });
 
+*/

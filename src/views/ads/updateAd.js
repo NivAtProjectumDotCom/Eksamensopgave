@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", (event) => {
 
     // Event on button click
-    document.getElementById("updateUserButton").addEventListener("click", (event) => {
+    document.getElementById("updateAdButton").addEventListener("click", (event) => {
         event.preventDefault()
         // Collect values for API
         let usernameVal = document.getElementById("usernameInput").value;
@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         };
 
         // Call API 
-        fetch(location.origin + "/users/update", {
+        fetch(location.origin + "/ads/update", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
