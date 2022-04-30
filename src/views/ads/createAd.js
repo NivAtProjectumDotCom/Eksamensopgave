@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             },
             body: JSON.stringify(product),
         }) 
-            .then((resp) => {
+            .then((resp) => { 
                 return resp.json();
             })
             .then((body) => {

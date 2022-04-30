@@ -85,7 +85,7 @@ const executeNonQuery = (query, params) => new Promise(
             let paramType = params[i][1]; // Tedious SQL injection
             let paramValue = params[i][2];
 
-            // Add param to the request
+            // Add param to the request£
             req.addParameter(paramName, paramType, paramValue);
         }
 
