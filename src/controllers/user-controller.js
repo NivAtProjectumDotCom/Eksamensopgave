@@ -13,7 +13,7 @@ Any other vital information is explained in comments on the functions of this fi
 
 
 // Get all users - Async express route, so that we can await the promise of the async dbcontext function(s)
-router.get("/getall", async(req, res) => {
+router.get("/getall", async (req, res) => {
     // Create T-SQL Query to be executed for a result to be responded upon
     let getAllTSQL = "SELECT * FROM ProgEksamen.users"
     // Execute the query with the executeQuery function, as we expect a resultset of rows of data
@@ -25,18 +25,18 @@ router.get("/getall", async(req, res) => {
 });
 
 // Get first - Async express route, so that we can await the promise of the async dbcontext function(s)
-router.get("/getfirst", async(req, res) => {
+router.get("/getfirst", async (req, res) => {
     // Just an example of a different query, but exactly the same as the above
 
     let getAllTSQL = "SELECT TOP(1) * FROM ProgEksamen.users"
     let result = await dbContext.executeQuery(getAllTSQL, null)
 
     res.status(200).json(result);
-}); 
+});
 
 // Get user by ID - Async express route, so that we can await the promise of the async dbcontext function(s)
 // This one also uses url paramters for the get request, this is done by using :userId in the route.
-router.get("/:userId", async(req, res) => {
+router.get("/:userId", async (req, res) => {
     // Collect the value of the url param
     let userid = req.params?.userId ?? null;
 
@@ -67,7 +67,7 @@ router.post("/create", async(req, res) => {
    // let followedads = req.body?.followedads ?? null;
 
 
-
+    console.log(req.body);
 
     // Validate the body and respond with error if not valid
     // if (username === null || password === null || email === null || userlevel === null) /* || followedads === null) */ res.status(500).send('ERROR IN BODY');
@@ -84,51 +84,59 @@ router.post("/create", async(req, res) => {
    
     ])
 
-    
+    console.log(result);
   
     // Respond to the request with the result of the executed query, when the promise has been resolved or rejected.
     // This should probably be split into responding with something different than 200 if the promise is rejected. I just haven't had the time yet.
-    res.status(200).json(result);
+    res.status(200).json({message: `User with id X has been created`});
 }); 
 
 // delete user, work in progess
-router.delete("/delete", async(req, res) => {
-   
-    let userName = req.body?.userName ?? null; 
-    let password = req.body?.password ?? null;
-    
-    let deleteUserTSQL = `DELETE FROM ProgEksamen.users WHERE password = @password`; // "2" skal ændres til at tage et blankt input2
- 
+router.delete("/delete", async (req, res) => {
+
+
+    console.log(req.body)
+    let userName = req.body?.userName ?? null;
+     let password = req.body?.password ?? null;
+    // error handling her
+    // joi dev
+
+    let deleteUserTSQL = `DELETE FROM ProgEksamen.users WHERE userName = @userName AND password = @password`; // "2" skal ændres til at tage et blankt input2
+
     let result = await dbContext.executeNonQuery(deleteUserTSQL, [
-       ['userName', TYPES.VarChar, userName] 
-       ['password', TYPES.VarChar, password]
+        ['userName', TYPES.VarChar, userName],
+        ['password', TYPES.VarChar, password]
     ])
- 
+    console.log(userName)
+    console.log(deleteUserTSQL)
+    console.log(result)
     res.status(200).json(result);
- 
- }); 
+
+});
 
 
- // update user
- router.put("/update", async(req, res) => {
+// update user
+router.put("/update", async (req, res) => {
 
-     let password = req.body?.password ?? null;  // params istedet efter nedarvninger eventuelt minus ?
+    let password = req.body?.password ?? null;  // params istedet efter nedarvninger eventuelt minus ?
     let userName = req.body?.userName ?? null; // params istedet
 
-     let updateUserTSQL = `UPDATE ProgEksamen.users SET userName = @userName WHERE password = @password`;
+    let updateUserTSQL = `UPDATE ProgEksamen.users SET userName = @userName WHERE password = @password`;
 
-     console.log(updateUserTSQL)
+    console.log(updateUserTSQL)
 
-     let result = await dbContext.executeNonQuery(updateUserTSQL, [
-         ['userName', TYPES.VarChar, userName], // En tedious funtkion vi bruger, som ikke er "nødvendig". Der skal læses op på tedious.types/ using parameters, hvor vi søger efter https://stackoverflow.com/questions/50279825/does-tedious-module-for-node-js-have-any-function-for-preventing-sql-injection
-         ['password', TYPES.VarChar, password] 
-     ])
-      
-     console.log(result);
-     res.status(200).json(result);
- 
- });
+    let result = await dbContext.executeNonQuery(updateUserTSQL, [
+        ['userName', TYPES.VarChar, userName], // En tedious funtkion vi bruger, som ikke er "nødvendig". Der skal læses op på tedious.types/ using parameters, hvor vi søger efter https://stackoverflow.com/questions/50279825/does-tedious-module-for-node-js-have-any-function-for-preventing-sql-injection
+        ['password', TYPES.VarChar, password]
+    ])
 
+    console.log(result);
+    res.status(200).json(result);
+
+});
+
+
+<<<<<<< HEAD
  // login
  
  router.post("/login", async(req, res) => {
@@ -140,4 +148,6 @@ router.delete("/delete", async(req, res) => {
  })
 
  
+=======
+>>>>>>> 4c2ccd404f2d1f627b61e6bb065218f60f50afaf
 module.exports = router;

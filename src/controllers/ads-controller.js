@@ -27,12 +27,13 @@ router.post("/create", async(req, res) => {
     let condition = req.body?.condition ?? null;
     let location = req.body?.location?? null;
     
+    console.log(req.body);
   
     // if (createdAt === null || productName === null || price === null || category_id === null)  || location_id === null || condition_id === null || premiumAd === null || user_id === null || city === null) res.status(500).send('ERROR IN BODY');
 
  
     // let createAdsTSQL = "INSERT INTO sales.userAds (createdAt, productName, price, category_id, location_id, condition_id, premiumAd, user_id, city) VALUES (@createdAt, @productName, @price, @category_id, @location_id, @condition_id, @premium_ad, @user_id, @city)"
-    let createAdsTSQL = "INSERT INTO ProgEksamen.userAds (productName, price, City) VALUES (@productName, @price, @City)"
+    let createAdsTSQL = "INSERT INTO ProgEksamen.userAds (productName, price, category_id, condition_id, location_id) VALUES (@productName, @price, @category_id, @condition_id, @location_id)"
 
 
     let result = await dbContext.executeNonQuery(createAdsTSQL, [
