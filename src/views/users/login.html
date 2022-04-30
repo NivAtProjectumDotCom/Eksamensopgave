@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <script src="login.js"></script>
+    <title>Log in / Create user</title>
+    <link rel="shortcut icon" href="/assets/favicon.ico">
+    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <form class="form" 
+        id="logIn">
+    <h1 class="form__titel">Log in</h1> 
+    <div class="form__input-gruppe">
+        <input type="email" id="email" class="form__input" autofocus placeholder="Email"/>
+    </div>
+    <div class="form__input-gruppe">
+        <input type="password" class="form__input" autofocus placeholder="password" id="password"/>
+    </div>
+    <button class="form__button" id="logInButton" value ="Upload!" type="submit" href="./">Log in</button>
+    <p class="form__tekst">
+        <a class="form__link" href="./createUser.html" id="linkCreateUser">Not a user yet? Create a new user</a>
+    </p>
+</form>
+</div>
