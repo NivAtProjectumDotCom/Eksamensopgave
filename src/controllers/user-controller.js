@@ -129,5 +129,15 @@ router.delete("/delete", async(req, res) => {
  
  });
 
+ // login
+ 
+ router.post("/login", async(req, res) => {
+    let username = req.body?.username ?? null;
+    let password = req.body?.password ?? null;
+    let email = req.body.email ?? null;
+
+
+ })
+
  
 module.exports = router;
