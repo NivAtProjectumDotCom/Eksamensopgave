@@ -137,6 +137,29 @@ router.put("/update", async (req, res) => {
 
 });
 
+// request premium
+router.put("/request", async (req, res) => {
+
+    let email = req.body?.email ?? null;  // params istedet efter nedarvninger eventuelt minus ?
+    let premiumRequest = req.body?.premiumRequest ?? null; // params istedet
+
+    
+
+    let requestTSQL = `UPDATE ProgEksamen.users SET premiumRequest = @premiumRequest WHERE email = @email`;
+
+    console.log(requestTSQL)
+
+    let result = await dbContext.executeNonQuery(requestTSQL, [
+        ['email', TYPES.VarChar, email], // En tedious funtkion vi bruger, som ikke er "nødvendig". Der skal læses op på tedious.types/ using parameters, hvor vi søger efter https://stackoverflow.com/questions/50279825/does-tedious-module-for-node-js-have-any-function-for-preventing-sql-injection
+        ['premiumRequest', TYPES.Bit, premiumRequest]
+    ])
+
+    console.log(result);
+    res.status(200).json(result);
+
+});
+
+
 
  // login
  

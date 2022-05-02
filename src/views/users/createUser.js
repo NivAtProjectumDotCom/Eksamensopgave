@@ -11,10 +11,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         let form = document.getElementById("form");
 
-        if(form.checkValidity() == false) {
+      /*  if(form.checkValidity() == false) {
             form.reportValidity();
-            return;
-        }
+            return; 
+        } */
   
         let user = {
             username: usernameVal.value,
