@@ -85,8 +85,10 @@ router.put("/update", async(req, res) => {
 
 }); 
 
-// filter ad after localtion_id
 
+// DISSE TRE ENDPOINTS VIRKER IKKE, MEN QUERYEN VIRKER I SQL! VI SKAL HAVE HJÆLP TIL DEM:-)
+
+// filter ad after localtion_id
 router.get("/filerlocation", async(req, res) => {
 
    let filterLocation = "SELECT p.productname, price, l.id AS LOCATION_ID, c.id AS CONDITION_ID, ca.id AS CATEGORY_ID FROM ProgEksamen.userAds p INNER JOIN ProgEksamen.location lON l.id = p.location_id INNER JOIN ProgEksamen.condition c ON c.id = p.condition_id INNER JOIN ProgEksamen.category ca ON ca.id = p.category_id WHERE p.productName IS NOT NULL AND l.id = 3";
@@ -103,11 +105,11 @@ router.get("/filerlocation", async(req, res) => {
 // filter ad after condition_id 
 router.get("/filercondition", async(req, res) => {
 
-   let filterLocation = "SELECT p.productname, price, l.id AS LOCATION_ID, c.id AS CONDITION_ID, ca.id AS CATEGORY_ID FROM ProgEksamen.userAds p INNER JOIN ProgEksamen.location lON l.id = p.location_id INNER JOIN ProgEksamen.condition c ON c.id = p.condition_id INNER JOIN ProgEksamen.category ca ON ca.id = p.category_id WHERE p.productName IS NOT NULL AND c.id = 2";
-   let locationID = req.body?.id ?? null;
+   let filterCondition = "SELECT p.productname, price, l.id AS LOCATION_ID, c.id AS CONDITION_ID, ca.id AS CATEGORY_ID FROM ProgEksamen.userAds p INNER JOIN ProgEksamen.location lON l.id = p.location_id INNER JOIN ProgEksamen.condition c ON c.id = p.condition_id INNER JOIN ProgEksamen.category ca ON ca.id = p.category_id WHERE p.productName IS NOT NULL AND c.id = 2";
+   let conditionID = req.body?.id ?? null;
 
-   let result = await dbContext.executeNonQuery(filterLocation, [
-      ['id', TYPES.Int, locationID]
+   let result = await dbContext.executeNonQuery(filterCondition, [
+      ['id', TYPES.Int, conditionID]
    ])
 
    console.log(result);
@@ -116,11 +118,11 @@ router.get("/filercondition", async(req, res) => {
 
 router.get("/filercategory", async(req, res) => {
 
-   let filterLocation = "SELECT p.productname, price, l.id AS LOCATION_ID, c.id AS CONDITION_ID, ca.id AS CATEGORY_ID FROM ProgEksamen.userAds p INNER JOIN ProgEksamen.location lON l.id = p.location_id INNER JOIN ProgEksamen.condition c ON c.id = p.condition_id INNER JOIN ProgEksamen.category ca ON ca.id = p.category_id WHERE p.productName IS NOT NULL AND ca.id = 1";
-   let locationID = req.body?.id ?? null;
+   let filterCategory = "SELECT p.productname, price, l.id AS LOCATION_ID, c.id AS CONDITION_ID, ca.id AS CATEGORY_ID FROM ProgEksamen.userAds p INNER JOIN ProgEksamen.location lON l.id = p.location_id INNER JOIN ProgEksamen.condition c ON c.id = p.condition_id INNER JOIN ProgEksamen.category ca ON ca.id = p.category_id WHERE p.productName IS NOT NULL AND ca.id = 1";
+   let categoryID = req.body?.id ?? null;
 
-   let result = await dbContext.executeNonQuery(filterLocation, [
-      ['id', TYPES.Int, locationID]
+   let result = await dbContext.executeNonQuery(filterCategory [
+      ['id', TYPES.Int, categoryID]
    ])
 
    console.log(result);
