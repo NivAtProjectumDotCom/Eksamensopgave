@@ -23,14 +23,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
         // Call API 
         fetch(location.origin + "/ads/create", {
             method: "POST",
-            headers: {
+            headers: { 
                 "Content-Type": "application/json",
                 'Accept': 'application/json'   
             },
             body: JSON.stringify(product),
         }) 
-            .then((resp) => { 
-                return resp.json();
+            .then((resp) => {  
+                return resp.json(); 
               
             })
             .then((body) => {
