@@ -1,4 +1,7 @@
-// Her kan vi skrive admins funktionalitet. 
+const express = require("express");
+const router = express.Router();
+var TYPES = require('tedious').TYPES;
+const dbContext = require('../contexts/dbcontext');
 
 // admin get all users with all data
 router.get("/getusers", async(req, res) => {
@@ -23,21 +26,46 @@ router.get("/getads", async(req, res) => {
 // admin delete user
 router.delete("/delete", async(req, res) => {
    
-   // let userName = req.body?.userName ?? null; 
-    let userId = req.body?.password ?? null;
+    let userId = req.body?.userId ?? null;
     
-    let deleteUserTSQL = `DELETE FROM ProgEksamen.users WHERE id = @userId`; // "2" skal ændres til at tage et blankt input2
+    let adminDeleteUserTSQL = "DELETE FROM ProgEksamen.users WHERE id = @id";
  
-    let result = await dbContext.executeNonQuery(deleteUserTSQL, [
-      // ['userName', TYPES.VarChar, userName] 
-       ['userId', TYPES.Int, userId]
+
+    console.log(adminDeleteUserTSQL)
+
+    let result = await dbContext.executeNonQuery(adminDeleteUserTSQL, [
+       ['id', TYPES.Int, userId]
     ])
- 
+
+    console.log(result);
     res.status(200).json(result);
  
  }); 
 
 // admin update user
+router.put("/update", async (req, res) => {
+
+    let userId = req.body?.userId ?? null;  // params istedet efter nedarvninger eventuelt minus ?
+    let premiumUser = req.body?.premiumUser ?? null; // params istedet
+
+    
+
+    let adminUpdateUserTSQL = "UPDATE ProgEksamen.users SET premiumUser = @premiumUser WHERE id = @id";
+
+    console.log(adminUpdateUserTSQL)
+
+    let result = await dbContext.executeNonQuery(adminUpdateUserTSQL, [
+        ['id', TYPES.Int, userId], // En tedious funtkion vi bruger, som ikke er "nødvendig". Der skal læses op på tedious.types/ using parameters, hvor vi søger efter https://stackoverflow.com/questions/50279825/does-tedious-module-for-node-js-have-any-function-for-preventing-sql-injection
+        ['premiumUser', TYPES.VarChar, premiumUser]
+    ])
+
+    console.log(result); 
+    res.status(200).json(result);
+
+}); 
 
 // admin update top premium user
 
+
+
+module.exports = router;

@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 // Users
 const userController = require("./src/controllers/user-controller");
 const adsController = require("./src/controllers/ads-controller");
-// const adminController = require("./src/controllers/admin-controller");  
+const adminController = require("./src/controllers/admin-controller");  
 
 
 const PORT = process.env.PORT || 1010;
@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 app.use("/users", userController);
 app.use("/ads", adsController);
 
-// app.use("/admin, adminController");
+app.use("/admin", adminController);
 
 
 // Start server
