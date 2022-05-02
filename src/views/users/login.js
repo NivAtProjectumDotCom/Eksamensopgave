@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", (e) => {
     document.getElementById("logIn").addEventListener("submit", (e) => {
         e.preventDefault();
@@ -10,7 +11,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
             password: password
         };
 
-        fetch("http://localhost:3050/users/login", { //Fetch sender host til serveren. 
+        fetch("http://localhost:1010/users/login", { //Fetch sender host til serveren. 
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -21,15 +22,15 @@ document.addEventListener("DOMContentLoaded", (e) => {
         .then((response) => {
             if (response) {
                 localStorage.setItem("user", JSON.stringify(user)); // Put brugeren i localStorage på browseren, så det bliver gemt at brugeren er logget ind.
-                location.href = "./"; //Når oplysningerne er korrekte, bliver brugeren sendt videre til home page, hvor den er logget ind. 
+             location.href = "/" //Når oplysningerne er korrekte, bliver brugeren sendt videre til home page, hvor den er logget ind. 
             } else {
                 window.alert("De indtastede oplysninger er forkerte."); //Hvis oplysningerne ikke stemmer, vil en meddelelse komme frem.
             }
         })
         .catch(() => {
-            window.alert("Der skete en fejl");
+            window.alert("Der skete en fejl");   
         });
 
         
     });
-})
+})  

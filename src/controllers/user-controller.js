@@ -49,13 +49,13 @@ router.get("/:userId", async (req, res) => {
     // This is done by creating an array of arrays containing the 3 variable: VariableName, VariableType, VariableValue
     // The params is handled in the function by adding the to the tedious query request.
     let result = await dbContext.executeQuery(getAllTSQL, [
-        ['userid', TYPES.Int, userid]
+        ['userId', TYPES.Int, userid]
     ]);
 
     // Respond to the request with the result of the executed query, when the promise has been resolved or rejected.
     // This should probably be split into responding with something different than 200 if the promise is rejected. I just haven't had the time yet.
     res.status(200).json(result);
-});
+}); 
 
 // Create user
 router.post("/create", async(req, res) => {
