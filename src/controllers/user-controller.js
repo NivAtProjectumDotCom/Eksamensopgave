@@ -121,6 +121,8 @@ router.put("/update", async (req, res) => {
     let password = req.body?.password ?? null;  // params istedet efter nedarvninger eventuelt minus ?
     let userName = req.body?.userName ?? null; // params istedet
 
+    
+
     let updateUserTSQL = `UPDATE ProgEksamen.users SET userName = @userName WHERE password = @password`;
 
     console.log(updateUserTSQL)
@@ -136,18 +138,26 @@ router.put("/update", async (req, res) => {
 });
 
 
-<<<<<<< HEAD
  // login
  
  router.post("/login", async(req, res) => {
-    let username = req.body?.username ?? null;
     let password = req.body?.password ?? null;
     let email = req.body.email ?? null;
 
+    if (email === null) res.status(500).send('User not existing');
+
+    let getUserTSQL = `SELECT * FROM ProgEksamen.users WHERE email = @email AND password = @password`;
+
+    let result = await dbContext.executeNonQuery(getUserTSQL, [
+        ['email', TYPES.VarChar, email],
+        ['password', TYPES.VarChar, password]
+    ])
+    console.log(email)
+    console.log(getUserTSQL)
+    console.log(result)
+    res.status(200).json(result);
 
  })
 
  
-=======
->>>>>>> 4c2ccd404f2d1f627b61e6bb065218f60f50afaf
 module.exports = router;
