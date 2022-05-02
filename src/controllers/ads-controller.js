@@ -29,7 +29,7 @@ router.post("/create", async(req, res) => {
     
     console.log(req.body);
   
-    // if (createdAt === null || productName === null || price === null || category_id === null)  || location_id === null || condition_id === null || premiumAd === null || user_id === null || city === null) res.status(500).send('ERROR IN BODY');
+    // if ( /* createdAt === null || */ productName === null /*|| price === null || category_id === null)  || location_id === null || condition_id === null || premiumAd === null || user_id === null || city === null */ ) res.status(500).send('ERROR IN BODY');
 
  
     // let createAdsTSQL = "INSERT INTO sales.userAds (createdAt, productName, price, category_id, location_id, condition_id, premiumAd, user_id, city) VALUES (@createdAt, @productName, @price, @category_id, @location_id, @condition_id, @premium_ad, @user_id, @city)"
@@ -37,18 +37,18 @@ router.post("/create", async(req, res) => {
 
 
     let result = await dbContext.executeNonQuery(createAdsTSQL, [
-       // ['createdAt', TYPES.Timestamp, createdAt], 
-      ['productName', TYPES.Text, productName], 
+     ['productName', TYPES.VarChar, productName], 
       ['price', TYPES.Decimal, price,], // skal nok ikke være Decimal
-      ['category_id', TYPES.Int, category],
-      ['condition_id', TYPES.Int, condition],
-      ['location_id', TYPES.Int, location],
+      ['category_id', TYPES.VarChar, category],
+      ['condition_id', TYPES.VarChar, condition],
+      ['location_id', TYPES.VarChar, location],
       
-    ])
+    ])   
+  
   
     res.status(200).json(result); 
 });
-
+  
 // delete ads, work in progress
 
 router.delete("/delete", async(req, res) => {
