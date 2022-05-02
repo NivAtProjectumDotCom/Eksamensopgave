@@ -85,5 +85,20 @@ router.put("/update", async(req, res) => {
 
 }); 
 
+// filter ad after localtion_id
+
+router.get("/filer", async(req, res) => {
+
+   let filterLocation = "SELECT p.productname, price, l.id AS LOCATION_ID, c.id AS CONDITION_ID, ca.id AS CATEGORY_ID FROM ProgEksamen.userAds p INNER JOIN ProgEksamen.location lON l.id = p.location_id INNER JOIN ProgEksamen.condition c ON c.id = p.condition_id INNER JOIN ProgEksamen.category ca ON ca.id = p.category_id WHERE p.productName IS NOT NULL AND l.id = 3";
+   let locationID = req.body?.id ?? null;
+
+   let result = await dbContext.executeNonQuery(filterLocation, [
+      ['id', TYPES.Int, locationID]
+   ])
+
+   console.log(result);
+   res.status(200).json(result);
+})
+
  
 module.exports = router;
