@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             });
     });
 });
-
+/*
 document.addEventListener("DOMContentLoaded", (event) => {
 
     // Event on button click
@@ -101,6 +101,77 @@ document.addEventListener("DOMContentLoaded", (event) => {
             .catch(() => {
                 window.alert("Der skete en fejl");
             });
+            
     });
+
+});
+*/
+
+document.addEventListener("DOMContentLoaded", (event) => { 
+    document.getElementById("totalAdsButton").addEventListener("click", async() => {
+        let table = document.getElementById("table");
+        let result = await fetch("http://localhost:1010/admin/totalads", {method: "GET"})
+        .then(res => res.json())
+        .catch(err => console.log(err));
+
+        let tableHtml = `
+        <tr>
+            <th>Sum qty</th>
+
+        </tr>
+        
+        `;
+       
+        
+        result.forEach((ads) => {
+            tableHtml += `
+            <tr>
+                <td>${ads.total_ads}</td>
+                
+
+            `;
+
+        
+        }) 
+        table.innerHTML = tableHtml;
+    })
+
+    document.getElementById("getAdsButton").addEventListener("click", async() => {
+        let table = document.getElementById("table");
+        let result = await fetch("http://localhost:1010/ads/getall", {method: "GET"})
+        .then(res => res.json())
+        .catch(err => console.log(err));
+
+        let tableHtml = `
+        <tr>
+            <th>id</th>
+            <th>Productname</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Condition</th>
+            <th>Location</th>
+
+        </tr>
+        
+        `;
+       
+        
+        result.forEach((ads) => {
+            tableHtml += `
+            <tr>
+                <td>${ads.id}</td>
+                <td>${ads.productName}</td>
+                <td>${ads.price}</td>
+                <td>${ads.category_id}</td>
+                <td>${ads.condition_id}</td>
+                <td>${ads.location_id}</td>
+                
+
+            `;
+
+        
+        }) 
+        table.innerHTML = tableHtml;
+    })
 });
 
