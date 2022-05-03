@@ -21,11 +21,13 @@ router.get("/getall", async(req, res) => {
 router.post("/create", async(req, res) => {
   
    // let createdAt = req.body?.createdAt ?? null;
+   let user_id = req.body?.user_id ?? null;
     let productName = req.body?.productName ?? null;
     let price = req.body?.price ?? null;
     let category = req.body?.category ?? null;
     let condition = req.body?.condition ?? null;
     let location = req.body?.location?? null;
+   
     
     console.log(req.body);
   
@@ -33,18 +35,19 @@ router.post("/create", async(req, res) => {
 
  
     // let createAdsTSQL = "INSERT INTO sales.userAds (createdAt, productName, price, category_id, location_id, condition_id, premiumAd, user_id, city) VALUES (@createdAt, @productName, @price, @category_id, @location_id, @condition_id, @premium_ad, @user_id, @city)"
-    let createAdsTSQL = "INSERT INTO ProgEksamen.userAds (productName, price, category_id, condition_id, location_id) VALUES (@productName, @price, @category_id, @condition_id, @location_id)"
+    let createAdsTSQL = "INSERT INTO ProgEksamen.userAds (user_id, productName, price, category_id, condition_id, location_id) VALUES (@user_id, @productName, @price, @category_id, @condition_id, @location_id)"
 
 
     let result = await dbContext.executeNonQuery(createAdsTSQL, [
      ['productName', TYPES.VarChar, productName], 
-      ['price', TYPES.Decimal, price,], // skal nok ikke være Decimal
-      ['category_id', TYPES.VarChar, category],
-      ['condition_id', TYPES.VarChar, condition],
-      ['location_id', TYPES.VarChar, location],
+     ['user_id', TYPES.Int, user_id], 
+      ['price', TYPES.Decimal, price,],  
+      ['category_id', TYPES.Int, category],
+      ['condition_id', TYPES.Int, condition], 
+      ['location_id', TYPES.Int, location], 
       
-    ])   
-  
+    ])    
+   
   
     res.status(200).json(result); 
 });
@@ -53,44 +56,50 @@ router.post("/create", async(req, res) => {
 
 router.delete("/delete", async(req, res) => {
    
-   let productId = req.body?.productId ?? null;
+   let productName = req.body?.productName ?? null;
    
-   let deleteAdTSQL = "DELETE FROM ProgEksamen.userAds WHERE id = $id" // skal kunne tage et blankt input
+   let deleteAdTSQL = "DELETE FROM ProgEksamen.userAds WHERE productName = @productName" // skal kunne tage et blankt input
 
    let result = await dbContext.executeNonQuery(deleteAdTSQL, [
-      ['productId', TYPES.Int, productId]
+      ['productName', TYPES.VarChar, productName]
+
    ])
 
    res.status(200).json(result);
 
 });
 
-// update ad
+// update ad, fejler med "let paramName = params[i][0]; TypeError: Cannot read properties of undefined (reading '0')" // jeg tror den fejlede fordi at mange værdier var null, og den derfor ikke kunne køre igennem queryen
 router.put("/update", async(req, res) => {
 
-   let productName = req.body?.productName ?? null;
-   let          id = req.body?.id ?? null;
+   let productName = req.body?.productName ?? null; // optional chaining
+   let user_id = req.body?.user_id ?? null;
 
-   let updateAdTSQL = "UPDATE ProgEksamen.userAds SET productName = @productName WHERE id = @id";
+   let updateAdTSQL = `UPDATE ProgEksamen.userAds SET productName = @productName WHERE user_id = @user_id`;
+
+console.log(updateAdTSQL);
 
    let result = await dbContext.executeNonQuery(updateAdTSQL, [
        ['productName', TYPES.VarChar, productName]
-       ['id', TYPES.Int, id]
-
+       ['user_id', TYPES.Int, user_id]
+ 
    ])
-
-
+ 
+ 
    console.log(result);
-   res.status(200).json(result);
+   res.status(200).json(result); 
 
 }); 
-
+ 
 // filter ad after localtion_id
 
 router.get("/filer", async(req, res) => {
 
-   let filterLocation = "SELECT p.productname, price, l.id AS LOCATION_ID, c.id AS CONDITION_ID, ca.id AS CATEGORY_ID FROM ProgEksamen.userAds p INNER JOIN ProgEksamen.location lON l.id = p.location_id INNER JOIN ProgEksamen.condition c ON c.id = p.condition_id INNER JOIN ProgEksamen.category ca ON ca.id = p.category_id WHERE p.productName IS NOT NULL AND l.id = 3";
-   let locationID = req.body?.id ?? null;
+   let locationID = req.body?.locationID ?? null;
+
+
+
+   let filterLocation = "SELECT p.productname, price, l.id AS LOCATION_ID, c.id AS CONDITION_ID, ca.id AS CATEGORY_ID FROM ProgEksamen.userAds p INNER JOIN ProgEksamen.location lON l.id = p.location_id INNER JOIN ProgEksamen.condition c ON c.id = p.condition_id INNER JOIN ProgEksamen.category ca ON ca.id = p.category_id WHERE p.productName IS NOT NULL AND l.id = @id";
 
    let result = await dbContext.executeNonQuery(filterLocation, [
       ['id', TYPES.Int, locationID]

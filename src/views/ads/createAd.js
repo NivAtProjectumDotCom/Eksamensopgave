@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     document.getElementById("createAdButton").addEventListener("click", (x, ev) => {
         // Collect values for API
         let productNameVal = document.getElementById("productNameInput").value;
+        let userIdVal = document.getElementById("userIdInput").value;
         let priceVal = document.getElementById("priceInput").value;
         let categoryVal = document.getElementById("categoryInput").value;
         let conditionVal = document.getElementById("conditionInput").value;
@@ -11,7 +12,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     
 
         let product = {
-            id: null,
+            userId: userIdVal,
             productName: productNameVal,
             price: priceVal,
             category: categoryVal,
@@ -36,6 +37,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             .then((body) => {
                 console.log(body);
                 document.getElementById("productNameInput").value = '';
+                document.getElementById("userIdInput").value = '';
                 document.getElementById("priceInput").value = '';
                 document.getElementById("categoryInput").value = '';
                 document.getElementById("conditionInput").value = '';
