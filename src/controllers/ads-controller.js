@@ -23,37 +23,32 @@ router.post("/create", async(req, res) => {
    // let createdAt = req.body?.createdAt ?? null;
     let productName = req.body?.productName ?? null;
     let price = req.body?.price ?? null;
-    // let category_id = req.body?.category_id ?? null;
-    // let location_id = req.body?.location_id ?? null;
-   // let condition_id = req.body?.condition_id ?? null;
-  //  let premiumAd = req.body?.premium_ad ?? null;
- //   let user_id = req.body?.user_id ?? null;
-    let city = req.body?.city ?? null;   
-
+    let category = req.body?.category ?? null;
+    let condition = req.body?.condition ?? null;
+    let location = req.body?.location?? null;
+    
+    console.log(req.body);
   
-    // if (createdAt === null || productName === null || price === null || category_id === null)  || location_id === null || condition_id === null || premiumAd === null || user_id === null || city === null) res.status(500).send('ERROR IN BODY');
+    // if ( /* createdAt === null || */ productName === null /*|| price === null || category_id === null)  || location_id === null || condition_id === null || premiumAd === null || user_id === null || city === null */ ) res.status(500).send('ERROR IN BODY');
 
  
     // let createAdsTSQL = "INSERT INTO sales.userAds (createdAt, productName, price, category_id, location_id, condition_id, premiumAd, user_id, city) VALUES (@createdAt, @productName, @price, @category_id, @location_id, @condition_id, @premium_ad, @user_id, @city)"
-    let createAdsTSQL = "INSERT INTO ProgEksamen.userAds (productName, price, City) VALUES (@productName, @price, @City)"
+    let createAdsTSQL = "INSERT INTO ProgEksamen.userAds (productName, price, category_id, condition_id, location_id) VALUES (@productName, @price, @category_id, @condition_id, @location_id)"
 
 
     let result = await dbContext.executeNonQuery(createAdsTSQL, [
-       // ['createdAt', TYPES.Timestamp, createdAt], 
-       ['productName', TYPES.Text, productName], 
-        ['price', TYPES.Decimal, price,], // skal nok ikke være Decimal
-       // ['category_id', TYPES.Int, category_id],
-     //   ['location_id', TYPES.Int, location_id],
-     //   ['condition_id', TYPES.Int, condition_id],
-     //   ['premiumAd', TYPES.Binary, premiumAd],
-      //  ['user_id', TYPES.Int, user_id],
-        ['City', TYPES.Text, city],
-    
-    ])
+     ['productName', TYPES.VarChar, productName], 
+      ['price', TYPES.Decimal, price,], // skal nok ikke være Decimal
+      ['category_id', TYPES.VarChar, category],
+      ['condition_id', TYPES.VarChar, condition],
+      ['location_id', TYPES.VarChar, location],
+      
+    ])   
+  
   
     res.status(200).json(result); 
 });
-
+  
 // delete ads, work in progress
 
 router.delete("/delete", async(req, res) => {
@@ -73,17 +68,71 @@ router.delete("/delete", async(req, res) => {
 // update ad
 router.put("/update", async(req, res) => {
 
-   let productName = req.body?.userPassword ?? null;
+   let productName = req.body?.productName ?? null;
+   let          id = req.body?.id ?? null;
 
-   let updateAdTSQL = "";
+   let updateAdTSQL = "UPDATE ProgEksamen.userAds SET productName = @productName WHERE id = @id";
 
    let result = await dbContext.executeNonQuery(updateAdTSQL, [
        ['productName', TYPES.VarChar, productName]
+       ['id', TYPES.Int, id]
+
    ])
-   
+
+
+   console.log(result);
    res.status(200).json(result);
 
-})
+}); 
+
+
+// DISSE TRE ENDPOINTS VIRKER IKKE, MEN QUERYEN VIRKER I SQL! VI SKAL HAVE HJÆLP TIL DEM:-)
+
+// filter ad after localtion_id
+router.get("/filerlocation", async(req, res) => {
+
+   let filterLocation = "SELECT p.productname, price, l.id AS LOCATION_ID, c.id AS CONDITION_ID, ca.id AS CATEGORY_ID FROM ProgEksamen.userAds p INNER JOIN ProgEksamen.location lON l.id = p.location_id INNER JOIN ProgEksamen.condition c ON c.id = p.condition_id INNER JOIN ProgEksamen.category ca ON ca.id = p.category_id WHERE p.productName IS NOT NULL AND l.id = 3";
+   let locationID = req.body?.id ?? null;
+
+   let result = await dbContext.executeNonQuery(filterLocation, [
+      ['id', TYPES.Int, locationID]
+   ])
+
+   console.log(result);
+   res.status(200).json(result);
+});
+
+// filter ad after condition_id 
+router.get("/filercondition", async(req, res) => {
+
+   let filterCondition = "SELECT p.productname, price, l.id AS LOCATION_ID, c.id AS CONDITION_ID, ca.id AS CATEGORY_ID FROM ProgEksamen.userAds p INNER JOIN ProgEksamen.location lON l.id = p.location_id INNER JOIN ProgEksamen.condition c ON c.id = p.condition_id INNER JOIN ProgEksamen.category ca ON ca.id = p.category_id WHERE p.productName IS NOT NULL AND c.id = 2";
+   let conditionID = req.body?.id ?? null;
+
+   let result = await dbContext.executeNonQuery(filterCondition, [
+      ['id', TYPES.Int, conditionID]
+   ])
+
+   console.log(result);
+   res.status(200).json(result);
+});
+
+router.get("/filercategory", async(req, res) => {
+
+   let filterCategory = "SELECT p.productname, price, l.id AS LOCATION_ID, c.id AS CONDITION_ID, ca.id AS CATEGORY_ID FROM ProgEksamen.userAds p INNER JOIN ProgEksamen.location lON l.id = p.location_id INNER JOIN ProgEksamen.condition c ON c.id = p.condition_id INNER JOIN ProgEksamen.category ca ON ca.id = p.category_id WHERE p.productName IS NOT NULL AND ca.id = 1";
+   let categoryID = req.body?.id ?? null;
+
+   let result = await dbContext.executeNonQuery(filterCategory [
+      ['id', TYPES.Int, categoryID]
+   ])
+
+   console.log(result);
+   res.status(200).json(result);
+});
+
+
+
+
+
 
  
 module.exports = router;

@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 let nTHead = document.createElement('thead');
                 let nTBody = document.createElement('tbody');
            
-                let rHeaders = ['id', 'productName', 'price']; // Mangler alle de resterende
+                let rHeaders = ['id', 'productName', 'price', 'category', 'condition', 'location'];
                 for (let i = 0; i < rHeaders.length; i++) {
                     let nHValue = rHeaders[i];
                     let nHElem = document.createElement('th')

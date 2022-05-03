@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", (event) => {
 
     // Event on button click
-    document.getElementById("deleteUserButton").addEventListener("click", (event) => {
+    document.getElementById("updateAdButton").addEventListener("click", (event) => {
         event.preventDefault()
         // Collect values for API
         let usernameVal = document.getElementById("usernameInput").value;
@@ -15,8 +15,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
         };
 
         // Call API 
-        fetch(location.origin + "/users/delete", {
-            method: "DELETE",
+        fetch(location.origin + "/ads/update", {
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json",
                 'Accept': 'application/json'   
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 console.log(body);
                 document.getElementById("usernameInput").value = '';
                document.getElementById("passwordInput").value = '';
-                window.alert('User deleted!');
+                window.alert('User updated!');
             })
             .catch(() => {
                 window.alert("Der skete en fejl");

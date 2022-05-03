@@ -3,38 +3,43 @@ document.addEventListener("DOMContentLoaded", (event) => {
     // Event on button click
     document.getElementById("createAdButton").addEventListener("click", (x, ev) => {
         // Collect values for API
-        let productnameVal = document.getElementById("productnameInput").value;
+        let productNameVal = document.getElementById("productNameInput").value;
         let priceVal = document.getElementById("priceInput").value;
-        let categoryVal = document.getElementById("catInput").value;
-        let conditionVal = document.getElementById("conInput").value;
+        let categoryVal = document.getElementById("categoryInput").value;
+        let conditionVal = document.getElementById("conditionInput").value;
         let locationVal = document.getElementById("locationInput").value;
     
 
         let product = {
             id: null,
-            productname: productnameVal,
+            productName: productNameVal,
             price: priceVal,
             category: categoryVal,
             condition: conditionVal,
+<<<<<<< HEAD
             location: locationVal,
+=======
+            location: locationVal, 
+>>>>>>> master
 
         };  
 
         // Call API 
-        fetch(location.origin + "ads/create", {
+        fetch(location.origin + "/ads/create", {
             method: "POST",
-            headers: {
+            headers: { 
                 "Content-Type": "application/json",
                 'Accept': 'application/json'   
             },
             body: JSON.stringify(product),
         }) 
-            .then((resp) => {
-                return resp.json();
+            .then((resp) => {  
+                return resp.json(); 
+              
             })
             .then((body) => {
                 console.log(body);
-                document.getElementById("productnameInput").value = '';
+                document.getElementById("productNameInput").value = '';
                 document.getElementById("priceInput").value = '';
                 document.getElementById("categoryInput").value = '';
                 document.getElementById("conditionInput").value = '';

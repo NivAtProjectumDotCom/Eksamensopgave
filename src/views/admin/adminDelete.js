@@ -1,21 +1,18 @@
 document.addEventListener("DOMContentLoaded", (event) => {
 
     // Event on button click
-    document.getElementById("deleteUserButton").addEventListener("click", (event) => {
+    document.getElementById("adminDeleteUButton").addEventListener("click", (event) => {
         event.preventDefault()
         // Collect values for API
-        let usernameVal = document.getElementById("usernameInput").value;
-       let passwordVal = document.getElementById("passwordInput").value;
+        let userIdVal = document.getElementById("userIdInput").value;
   
         let user = {
-            'userName': usernameVal,
-           password: passwordVal,
-    
+            userId: userIdVal,
  
         };
 
         // Call API 
-        fetch(location.origin + "/users/delete", {
+        fetch(location.origin + "/admin/delete", {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -28,8 +25,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             })
             .then((body) => {
                 console.log(body);
-                document.getElementById("usernameInput").value = '';
-               document.getElementById("passwordInput").value = '';
+                document.getElementById("userIdInput").value = '';
                 window.alert('User deleted!');
             })
             .catch(() => {

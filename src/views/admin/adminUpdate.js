@@ -1,22 +1,22 @@
 document.addEventListener("DOMContentLoaded", (event) => {
 
     // Event on button click
-    document.getElementById("deleteUserButton").addEventListener("click", (event) => {
+    document.getElementById("premiumButton").addEventListener("click", (event) => {
         event.preventDefault()
         // Collect values for API
-        let usernameVal = document.getElementById("usernameInput").value;
-       let passwordVal = document.getElementById("passwordInput").value;
+        let userIdVal = document.getElementById("userIdInput").value;
+       let premiumdVal = document.getElementById("premiumInput").value;
   
         let user = {
-            'userName': usernameVal,
-           password: passwordVal,
+            userId: userIdVal,
+           premiumUser: premiumdVal,
     
  
         };
 
         // Call API 
-        fetch(location.origin + "/users/delete", {
-            method: "DELETE",
+        fetch(location.origin + "/admin/update", {
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json",
                 'Accept': 'application/json'   
@@ -28,9 +28,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
             })
             .then((body) => {
                 console.log(body);
-                document.getElementById("usernameInput").value = '';
-               document.getElementById("passwordInput").value = '';
-                window.alert('User deleted!');
+                document.getElementById("userIdInput").value = '';
+               document.getElementById("premiumInput").value = '';
+                window.alert('User updated to premium!');
             })
             .catch(() => {
                 window.alert("Der skete en fejl");

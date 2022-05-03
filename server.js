@@ -6,11 +6,10 @@ const bodyParser = require("body-parser");
 // Users
 const userController = require("./src/controllers/user-controller");
 const adsController = require("./src/controllers/ads-controller");
-// const adminController = require("./src/controllers/admin-controller");  
+const adminController = require("./src/controllers/admin-controller");  
 
 
-const PORT = process.env.PORT || 3050;
-// const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 1010;
 
 // Middleware
 app.use(express.static("./src/views"));
@@ -18,12 +17,12 @@ app.use(express.static("./src/views"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
+ 
 // Routes
 app.use("/users", userController);
 app.use("/ads", adsController);
 
-// app.use("/admin, adminController");
+app.use("/admin", adminController);
 
 
 // Start server
