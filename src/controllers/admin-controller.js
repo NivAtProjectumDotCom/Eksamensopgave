@@ -67,5 +67,36 @@ router.put("/update", async (req, res) => {
 // admin update top premium user
 
 
+// admin total ads
+router.get("/totalads", async (req, res) => {
+    let getTotalTSQL = "SELECT COUNT(id) AS total_ads FROM ProgEksamen.userAds";
+    let result = await dbContext.executeQuery(getTotalTSQL, null)
+
+   
+    res.status(200).json(result);
+
+})
+
+// admin total ads per user
+router.get("/adsperuser", async (req, res) => {
+    
+    let getAdsPerUserTSQL = "SELECT COUNT(id) AS total_ads_per_user FROM ProgEksamen.userAds WHERE @user_id = @user_id";
+    let userId = req.body?.userId ?? null;
+    
+ 
+
+    console.log(getAdsPerUserTSQL)
+
+    let result = await dbContext.executeNonQuery(getAdsPerUserTSQL, [
+       ['id', TYPES.Int, userId]
+    ])
+
+    console.log(result);
+    res.status(200).json(result);
+
+})
+
+
 
 module.exports = router;
+
