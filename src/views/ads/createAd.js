@@ -16,11 +16,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             price: priceVal,
             category: categoryVal,
             condition: conditionVal,
-<<<<<<< HEAD
-            location: locationVal,
-=======
             location: locationVal, 
->>>>>>> master
 
         };  
 
