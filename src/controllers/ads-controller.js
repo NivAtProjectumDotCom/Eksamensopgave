@@ -129,6 +129,22 @@ router.get("/filercategory", async(req, res) => {
    res.status(200).json(result);
 });
 
+// Get all users - Async express route, so that we can await the promise of the async dbcontext function(s)
+router.get("/flocation", async(req, res) => {
+   // Create T-SQL Query to be executed for a result to be responded upon
+   let locationTSQL = "SELECT * FROM ProgEksamen.userAds WHERE location_id = @location_id"
+   let locationID = req.body?.id ?? null;
+   // Execute the query with the executeQuery function, as we expect a resultset of rows of data
+   let result = await dbContext.executeQuery(locationTSQL [
+      ['id', TYPES.Int, locationID]
+   ])
+
+   // Respond to the request with the result of the executed query, when the promise has been resolved or rejected.
+   // This should probably be split into responding with something different than 200 if the promise is rejected. I just haven't had the time yet.
+   res.status(200).json(result);
+});
+
+
 
 
 
